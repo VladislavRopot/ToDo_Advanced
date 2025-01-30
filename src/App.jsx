@@ -40,6 +40,11 @@ function App() {
     setTasks([...tasks]);
   };
 
+  const handleClearAll = () => {
+    setTasks([]);
+    setInputValue(defaultTaskValue);
+  };
+
   return (
     <div >
       <div>
@@ -56,7 +61,7 @@ function App() {
           <li>Pending</li>
           <li>Completed</li>
         </ul>
-        <button>Clear all</button>
+        <button onClick={() => handleClearAll()}>Clear all</button>
       </div>
       <div>
         <ul>
