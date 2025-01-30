@@ -1,5 +1,7 @@
 import { useState } from "react";
-
+import TaskInput from "./components/TaskInput/TaskInput";
+import Statuses from "./components/Statuses/Statuses";
+import Tasks from "./components/Tasks/Tasks";
 function App() {
   const defaultTaskValue = {
     id: null,
@@ -9,7 +11,7 @@ function App() {
   const [inputValue, setInputValue] = useState(defaultTaskValue);
   const [tasks, setTasks] = useState([]);
 
-  const [status, setStatus] = useState(null );
+  const [status, setStatus] = useState(null);
   const handleSave = () => {
     if (inputValue.id === null) {
       inputValue.id = tasks.length + 1;
@@ -48,43 +50,27 @@ function App() {
 
   return (
     <div >
-      <div>
-        <input type="text"
-          placeholder="Add a new task"
-          value={inputValue.name}
-          onInput={(event) => setInputValue({ ...inputValue, name: event.target.value })} />
-        <button onClick={() => handleSave()}>Save</button>
-      </div>
+      < TaskInput inputValue={inputValue}
+        setInputValue={setInputValue}
+        handleSave={handleSave} />
 
       <div>
-        <ul>
-          <li onClick={() => setStatus(null)}>All</li>
-          <li onClick={() => setStatus(false)}>Pending</li>
-          <li onClick={() => setStatus(true)}>Completed</li>
-        </ul>
+        < Statuses status={status}
+          setStatus={setStatus} />
         <button onClick={() => handleClearAll()}>Clear all</button>
       </div>
       <div>
         <ul>
-          {tasks.filter(task => {
+          <Tasks tasks={tasks.filter(task => {
             if (status === null) {
               return true;
             } else {
               return task.completed === status;
             }
-          }).map(task => (
-            <li key={task.id}>
-              <input type="checkbox"
-                checked={task.completed}
-                onChange={(event) => handleCompletedChange(task, event.target.checked)} />
-              <span>{task.name}</span>
-              <div>
-                <button onClick={() => setInputValue(task)}>Edit</button>
-                <button onClick={() => handleRemove(task)}>Remove</button>
-              </div>
-            </li>
-          ))}
-
+          })}
+            handleCompletedChange={handleCompletedChange}
+            setInputValue={setInputValue}
+            handleRemove={handleRemove}/>
         </ul>
       </div>
     </div>
