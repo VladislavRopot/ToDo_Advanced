@@ -25,6 +25,11 @@ function App() {
 
     setInputValue(defaultTaskValue);
   };
+
+  const handleRemove = (task) => {
+    setTasks([...tasks.filter(item => item.id !== task.id)]);
+  };
+
   return (
     <div >
       <div>
@@ -52,7 +57,7 @@ function App() {
               <span>{task.name}</span>
               <div>
                 <button onClick={() => setInputValue(task)}>Edit</button>
-                <button>Remove</button>
+                <button onClick={() => handleRemove(task)}>Remove</button>
               </div>
             </li>
           ))}
