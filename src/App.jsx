@@ -9,6 +9,7 @@ function App() {
   const [inputValue, setInputValue] = useState(defaultTaskValue);
   const [tasks, setTasks] = useState([]);
 
+  const [status, setStatus] = useState(null );
   const handleSave = () => {
     if (inputValue.id === null) {
       inputValue.id = tasks.length + 1;
@@ -57,15 +58,21 @@ function App() {
 
       <div>
         <ul>
-          <li>All</li>
-          <li>Pending</li>
-          <li>Completed</li>
+          <li onClick={() => setStatus(null)}>All</li>
+          <li onClick={() => setStatus(false)}>Pending</li>
+          <li onClick={() => setStatus(true)}>Completed</li>
         </ul>
         <button onClick={() => handleClearAll()}>Clear all</button>
       </div>
       <div>
         <ul>
-          {tasks.map(task => (
+          {tasks.filter(task => {
+            if (status === null) {
+              return true;
+            } else {
+              return task.completed === status;
+            }
+          }).map(task => (
             <li key={task.id}>
               <input type="checkbox"
                 checked={task.completed}
