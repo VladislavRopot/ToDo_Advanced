@@ -16,11 +16,11 @@ function App() {
       setTasks([...tasks, inputValue]);
     } else {
       const index = tasks.findIndex(item => item.id === inputValue.id);
-        if (index !== -1) {
-          tasks[index] = inputValue;
-        }
+      if (index !== -1) {
+        tasks[index] = inputValue;
+      }
 
-        setTasks([...tasks]);
+      setTasks([...tasks]);
     }
 
     setInputValue(defaultTaskValue);
@@ -30,13 +30,23 @@ function App() {
     setTasks([...tasks.filter(item => item.id !== task.id)]);
   };
 
+  const handleCompletedChange = (task, checked) => {
+
+    const index = tasks.findIndex(item => item.id === task.id);
+    if (index !== -1) {
+      tasks[index] = { ...task, completed: checked };
+    }
+
+    setTasks([...tasks]);
+  };
+
   return (
     <div >
       <div>
         <input type="text"
           placeholder="Add a new task"
           value={inputValue.name}
-          onInput={(event) => setInputValue({...inputValue, name: event.target.value})} />
+          onInput={(event) => setInputValue({ ...inputValue, name: event.target.value })} />
         <button onClick={() => handleSave()}>Save</button>
       </div>
 
@@ -53,7 +63,8 @@ function App() {
           {tasks.map(task => (
             <li key={task.id}>
               <input type="checkbox"
-                checked={task.completed} />
+                checked={task.completed}
+                onChange={(event) => handleCompletedChange(task, event.target.checked)} />
               <span>{task.name}</span>
               <div>
                 <button onClick={() => setInputValue(task)}>Edit</button>
@@ -61,7 +72,7 @@ function App() {
               </div>
             </li>
           ))}
-          
+
         </ul>
       </div>
     </div>
