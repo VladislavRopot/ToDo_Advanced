@@ -1,0 +1,65 @@
+
+.taskList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.taskItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+.taskItem input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+
+.taskName {
+    flex: 1;
+    font-size: 16px;
+    color: #333;
+    
+}
+
+
+.taskActions {
+    display: flex;
+    gap: 10px;
+}
+
+
+.taskActions button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.taskActions button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+.taskActions button:hover {
+    background-color: #0056b3;
+}
+
+
+p {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
